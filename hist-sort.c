@@ -3,7 +3,7 @@
 #include <time.h>
 
 #define RANGE 10000
-#define COUNT 10000
+#define COUNT 10000000
 
 int is_sorted(unsigned int *data, size_t length)
 {
