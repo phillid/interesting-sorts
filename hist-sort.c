@@ -1,3 +1,20 @@
+/**
+ * Histogram sort
+ *
+ * This sort is interesting in that it is a "comparison-free" sort. That is to
+ * say that it doesn't ever directly compare two items against each other to
+ * determine the larger one, much like conventional sorting algorithms does.
+ *
+ * Instead, a histogram is built by counting the frequency of each value in
+ * the input set. Then, a sorted output set is constructed from this histogram
+ * since it is implicitly in order.
+ *
+ * This has the disadvantage of becoming heavy on memory usage when the input
+ * values increase in range. Theoretically, if the range was high, but sparse,
+ * some simple compression could be applied. There's an area for
+ * experimentation.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
