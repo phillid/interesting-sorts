@@ -22,8 +22,8 @@
 #define RANGE 10000
 #define COUNT 10000000
 
-int is_sorted(unsigned int *data, size_t length)
-{
+int
+is_sorted(unsigned int *data, size_t length) {
 	size_t i = 0;
 
 	for (i = 0; i < length-1; i++)
@@ -33,19 +33,24 @@ int is_sorted(unsigned int *data, size_t length)
 	return 1;
 }
 
-void fill_random(unsigned int *data, size_t length, unsigned int max)
-{
+void
+fill_random(unsigned int *data, size_t length, unsigned int max) {
 	size_t i = 0;
 
 	for (i = 0; i < length; i++)
 		data[i] = rand()%max+1;
 }
 
-void sort(unsigned int *data, size_t length, unsigned int max)
-{
+void
+sort(unsigned int *data, size_t length, unsigned int max) {
 	size_t *hist = calloc(max+1, sizeof(size_t));
 	size_t i = 0;
 	size_t j = 0;
+
+	if (!hist) {
+		perror("calloc");
+		return;
+	}
 
 	for (i = 0; i < length; i++) {
 		hist[data[i]]++;
@@ -58,8 +63,8 @@ void sort(unsigned int *data, size_t length, unsigned int max)
 	}
 }
 
-void dump_data(unsigned int *data, size_t length)
-{
+void
+dump_data(unsigned int *data, size_t length) {
 	size_t i = 0;
 
 	for (i = 0; i < length; i++)
@@ -68,8 +73,9 @@ void dump_data(unsigned int *data, size_t length)
 	fputc('\n', stdout);
 }
 
-int main(int argc, char **argv)
-{
+int
+main(int argc, char **argv) {
+	clock_t start, end;
 	unsigned int *data = calloc(COUNT, sizeof(unsigned int));
 
 	if (!data) {
@@ -82,8 +88,13 @@ int main(int argc, char **argv)
 	fill_random(data, COUNT, RANGE);
 
 	//dump_data(data, COUNT);
+	start = clock();
 	sort(data, COUNT, RANGE);
+	end = clock();
 	//dump_data(data, COUNT);
+
+	printf("Time elapsed to sort: %.4f\n",
+			((double)(end-start))/CLOCKS_PER_SEC);
 
 	if (!is_sorted(data, COUNT)) {
 		fprintf(stderr, "Failed: out of order\n");
