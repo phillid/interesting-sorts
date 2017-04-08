@@ -5,7 +5,21 @@
  * say that it doesn't ever directly compare two items against each other to
  * determine the larger one, much like conventional sorting algorithms does.
  *
- * Instead, a histogram is built by counting the frequency of each value in
+ * It basically counts the frequency of each input value into a histogram.
+ * So it'd take an input set
+ *
+ *     {5,4,0,5,0,1,4,2,1,1,3}
+ *
+ * and compress it into the histogram
+ *
+ *     {2,3,1,1,2,2}
+ *
+ * by counting the number of occurences of 0, 1, … 5. Then it just builds the
+ * sorted set by walking the histogram from left to right.
+ *
+ *     {0,0,1,1,1,2,3,4,4,5,5}
+ *
+ * Essentially, a histogram is built by counting the frequency of each value in
  * the input set. Then, a sorted output set is constructed from this histogram
  * since it is implicitly in order.
  *
